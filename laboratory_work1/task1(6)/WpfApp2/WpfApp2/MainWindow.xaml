@@ -1,0 +1,42 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Task2" Height="450" Width="800">
+    <Grid Background="#FF6CA6FF" Margin="0,-2,-1,1">
+        <!-- Синий фон для окна -->
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform Angle="0.32"/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="162" Width="294" Margin="17,20,0,0" Background="#FFFFF3B0">
+            <!-- Желтый фон для панели -->
+
+            <Label Content="Введите число" Background="#FF757487" Height="26" Width="222" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0"/>
+            <TextBox x:Name="inputNumberTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Height="23" Width="222" Text="2" Margin="0,32,0,0" TextChanged="InputNumberTextBox_TextChanged"/>
+            <Label Content="Введите начальное приближение" Background="#FF757487" Height="26" Width="222" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="34,88,0,0"/>
+            <TextBox x:Name="inputGuessTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="222" Text="1" Background="White" Margin="34,119,0,0" TextChanged="InputGuessTextBox_TextChanged"/>
+        </Grid>
+
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="162" Width="430" Margin="327,20,0,0" Background="#FF9DE2DA">
+            <Label x:Name="frameWorkLabelName" Content=".NET Framework" Background="#FF757487" Height="35" Width="130" HorizontalAlignment="Left" Margin="284,7,0,0"/>
+            <Label x:Name="frameworkLabel" Background="White" Height="36" Width="241" HorizontalAlignment="Left" Margin="11,0,0,0" VerticalAlignment="Center"/>
+            <Label x:Name="newtonLabel" Background="White" Height="36" Width="241" HorizontalAlignment="Left" Margin="11,17,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="newtonLabelName" Content="Ньютон" Background="#FF757487" Height="34" Width="130" HorizontalAlignment="Left" Margin="285,16,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="calculateButton" Content="Вычислить" Background="#FF757487" Margin="15,115,241,20" Click="CalculateButton_Click"/>
+            <Button x:Name="nextIteration" Content="Следующая итерация" Background="#FF757487" Margin="240,115,16,20" Click="NextIterationButton_Click"/>
+        </Grid>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="24,212,38,25" Width="739" Height="198">
+            <Label x:Name="outputLabel" FontSize="20" Background="#FFA2B8B5" Height="Auto" Width="1470" Content=""/>
+        </ScrollViewer>
+    </Grid>
+</Window>

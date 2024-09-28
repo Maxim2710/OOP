@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WpfApp3</name>
+    </assembly>
+    <members>
+        <member name="T:WpfApp3.App">
+            <summary>
+            Interaction logic for App.xaml
+            </summary>
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="M:WpfApp3.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:WpfApp3.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="T:WpfApp3.MainWindow">
+            <summary>
+            Interaction logic for MainWindow.xaml
+            </summary>
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="M:WpfApp3.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:WpfApp3.Page1">
+            <summary>
+            Логика взаимодействия для Page1.xaml
+            </summary>
+            <summary>
+            Page1
+            </summary>
+        </member>
+        <member name="M:WpfApp3.Page1.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:WpfApp3.Page2">
+            <summary>
+            Логика взаимодействия для Page2.xaml
+            </summary>
+            <summary>
+            Page2
+            </summary>
+        </member>
+        <member name="M:WpfApp3.Page2.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+    </members>
+</doc>
