@@ -41,7 +41,10 @@
                     <ComboBoxItem Content="10" IsSelected="True" />
                 </ComboBox>
 
-                <Grid x:Name="grid1" Width="150" Height="194" />
+                <!-- Добавляем ScrollViewer вокруг grid1 -->
+                <ScrollViewer Width="150" Height="194" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <Grid x:Name="grid1" />
+                </ScrollViewer>
             </StackPanel>
 
             <!-- StackPanel для второй матрицы -->
@@ -62,13 +65,20 @@
                     <ComboBoxItem Content="10" IsSelected="True" />
                 </ComboBox>
 
-                <Grid x:Name="grid2" Width="150" Height="194" />
+                <!-- Добавляем ScrollViewer вокруг grid2 -->
+                <ScrollViewer Width="150" Height="194" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <Grid x:Name="grid2" />
+                </ScrollViewer>
             </StackPanel>
 
             <!-- StackPanel для отображения результата -->
             <StackPanel Margin="10">
                 <TextBlock Text="Result Matrix" HorizontalAlignment="Center" />
-                <Grid x:Name="grid3" Width="150" Height="203" />
+
+                <!-- Добавляем ScrollViewer вокруг grid3 -->
+                <ScrollViewer Width="150" Height="203" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <Grid x:Name="grid3" />
+                </ScrollViewer>
             </StackPanel>
         </StackPanel>
 

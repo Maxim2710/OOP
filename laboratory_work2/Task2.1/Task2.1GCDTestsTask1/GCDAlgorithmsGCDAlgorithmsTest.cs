@@ -18,7 +18,7 @@ namespace Task2._1.GCDTests
             int b = 345;
             int expected = 23;
 
-            int result = GCDAlgorithms.FindGCDEuclid(a, b);
+            int result = EuclideanAlgorithm.FindGCD(a, b);
             Assert.AreEqual(expected, result);
         }
     }

@@ -40,7 +40,8 @@ namespace Task2._3
             if (int.TryParse(numberInput.Text, out int n) && n > 2)
             {
                 int largestPrime = MathUtilities.FindLargestPrimeLessThan(n);
-                resultLabel.Content = $"Largest Prime < {n}: {largestPrime} (2^{(int)Math.Log2(largestPrime)})";
+                string representation = MathUtilities.RepresentAsPowerOfTwo(largestPrime);
+                resultLabel.Content = $"Largest Prime < {n}: {largestPrime} ({representation})";
             }
             else
             {

@@ -27,29 +27,13 @@ namespace Task2._1
             {
                 int num1 = int.Parse(firstNumber.Text);
                 int num2 = int.Parse(secondNumber.Text);
-                int gcd = GCDAlgorithms.FindGCDEuclid(num1, num2);
+                int gcd = EuclideanAlgorithm.FindGCD(num1, num2); // Изменено
                 resultEuclid.Content = $"Euclid: {gcd}";
             }
             catch (FormatException)
             {
                 resultEuclid.Content = "Please enter valid integers.";
             }
-        }
-    }
-
-    public static class GCDAlgorithms
-    {
-        public static int FindGCDEuclid(int a, int b)
-        {
-            if (a == 0) return b;
-            while (b != 0)
-            {
-                if (a > b)
-                    a -= b;
-                else
-                    b -= a;
-            }
-            return a;
         }
     }
 }
