@@ -1,0 +1,18 @@
+﻿<Window x:Class="IntegerOverflow.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Integer Overflow" Height="250" Width="400">
+    <Grid>
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="Enter first number:" FontSize="14"/>
+            <TextBox Name="FirstNumberTextBox" Width="200" Height="30" Margin="0,10"/>
+
+            <TextBlock Text="Enter second number:" FontSize="14"/>
+            <TextBox Name="SecondNumberTextBox" Width="200" Height="30" Margin="0,10"/>
+
+            <Button Name="MultiplyButton" Content="Multiply" Click="DoMultiply_Click" Width="100" Height="30" Margin="0,10"/>
+
+            <TextBlock Name="ResultTextBlock" FontSize="16" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</Window>
