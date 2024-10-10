@@ -15,11 +15,15 @@ namespace StructComplexNumbers
             Imaginary = imaginary;
         }
 
+        // task 2
+
         // Модуль числа |z| = sqrt(a^2 + b^2)
         public readonly double Magnitude => Math.Sqrt(Real * Real + Imaginary * Imaginary);
 
         // Аргумент числа (угол) theta = atan2(b, a)
         public readonly double Argument => Math.Atan2(Imaginary, Real);
+
+        // task3
 
         // Операторы сложения
         public static ComplexNumber operator +(ComplexNumber c1, ComplexNumber c2)
@@ -42,6 +46,8 @@ namespace StructComplexNumbers
                                      (c1.Imaginary * c2.Real - c1.Real * c2.Imaginary) / denom);
         }
 
+        // task 4
+
         // Оператор сравнения ==
         public static bool operator ==(ComplexNumber c1, ComplexNumber c2)
             => c1.Real == c2.Real && c1.Imaginary == c2.Imaginary;
@@ -55,6 +61,9 @@ namespace StructComplexNumbers
             => obj is ComplexNumber other && this == other;
 
         public override int GetHashCode() => HashCode.Combine(Real, Imaginary);
+
+
+        // task 5
 
         // Перегрузка ToString
         public override string ToString()

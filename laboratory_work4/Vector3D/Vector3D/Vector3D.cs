@@ -12,8 +12,13 @@ namespace Vector3D
         public double Y { get; } = y;
         public double Z { get; } = z;
 
+        // task 2
+
         // Свойство для вычисления модуля вектора
         public readonly double Magnitude => Math.Sqrt(X * X + Y * Y + Z * Z);
+
+
+        // task 3
 
         // Перегрузка оператора сложения
         public static Vector3DClass operator +(Vector3DClass v1, Vector3DClass v2)
@@ -27,6 +32,8 @@ namespace Vector3D
             return new Vector3DClass(v1.X - v2.X, v1.Y - v2.Y, v1.Z - v2.Z);
         }
 
+        // task 4
+
         // Перегрузка оператора ==
         public static bool operator ==(Vector3DClass v1, Vector3DClass v2)
         {
@@ -38,6 +45,8 @@ namespace Vector3D
         {
             return !(v1 == v2);
         }
+
+        // task 6
 
         // Перегрузка оператора умножения на скаляр (слева)
         public static Vector3DClass operator *(double scalar, Vector3DClass v)
@@ -51,6 +60,8 @@ namespace Vector3D
             return scalar * v;
         }
 
+        // task 7
+
         // Векторное произведение двух векторов
         public static Vector3DClass CrossProduct(Vector3DClass v1, Vector3DClass v2)
         {
@@ -60,6 +71,8 @@ namespace Vector3D
                 v1.X * v2.Y - v1.Y * v2.X
             );
         }
+
+        // task 5
 
         // Перегрузка метода ToString
         public override string ToString()

@@ -1,6 +1,8 @@
 ﻿using System;
 
 namespace StructComplexNumbers
+
+    // task 6
 {
     // Класс для работы с экспоненциальной формой
     public static class ComplexOperations
