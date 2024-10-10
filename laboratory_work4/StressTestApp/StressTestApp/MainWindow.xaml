@@ -1,0 +1,50 @@
+﻿<Window x:Class="StressTestApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Stress Test App" Height="650" Width="725">
+    <Grid>
+        <StackPanel Margin="20">
+            <!-- Выбор материала -->
+            <TextBlock Text="Select Material:" FontWeight="Bold" />
+            <ListBox x:Name="materialsList" SelectionChanged="SelectionChanged">
+                <ListBoxItem>Stainless Steel</ListBoxItem>
+                <ListBoxItem>Aluminium</ListBoxItem>
+                <ListBoxItem>Reinforced Concrete</ListBoxItem>
+                <ListBoxItem>Composite</ListBoxItem>
+                <ListBoxItem>Titanium</ListBoxItem>
+            </ListBox>
+
+            <!-- Выбор сечения -->
+            <TextBlock Text="Select Cross Section:" FontWeight="Bold" />
+            <ListBox x:Name="crossSectionsList" SelectionChanged="SelectionChanged">
+                <ListBoxItem>I-Beam</ListBoxItem>
+                <ListBoxItem>Box</ListBoxItem>
+                <ListBoxItem>Z-Shaped</ListBoxItem>
+                <ListBoxItem>C-Shaped</ListBoxItem>
+            </ListBox>
+
+            <!-- Выбор результата теста -->
+            <TextBlock Text="Select Test Result:" FontWeight="Bold" />
+            <ListBox x:Name="testResultsList" SelectionChanged="SelectionChanged">
+                <ListBoxItem>Pass</ListBoxItem>
+                <ListBoxItem>Fail</ListBoxItem>
+            </ListBox>
+
+            <!-- Метка для отображения результата -->
+            <Label x:Name="testDetails" FontSize="16" FontWeight="Bold" Content="Test Details will be shown here" />
+
+            <!-- Кнопка для запуска тестов -->
+            <Button Content="Run Tests" Click="RunTests_Click" Width="100" Height="30" Margin="10"/>
+
+            <!-- Метки для отображения количества успешных и проваленных тестов -->
+            <Label x:Name="passCountLabel" Content="Successes: 0" FontSize="14" FontWeight="Bold" />
+            <Label x:Name="failCountLabel" Content="Failures: 0" FontSize="14" FontWeight="Bold" />
+
+            <!-- Список причин отказов -->
+            <ListBox x:Name="reasonsList" Height="150" Width="300" />
+        </StackPanel>
+    </Grid>
+</Window>
