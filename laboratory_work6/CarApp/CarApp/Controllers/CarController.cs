@@ -20,6 +20,9 @@ namespace CarSimulationApp.Controllers
         private SemaphoreSlim _semaphore; // Семафор для ограничения доступа
         private bool _isRunning = true;
         private Random _random;
+        private object _lock = new object(); // Для lock
+        private object _monitorLock = new object(); // Для Monitor
+        private Mutex _mutex = new Mutex(); 
 
         public CarController(Canvas canvas)
         {
@@ -30,33 +33,51 @@ namespace CarSimulationApp.Controllers
             _semaphore = new SemaphoreSlim(1, 1); // Инициализируем семафор
             _random = new Random();
 
-            // Инициализируем 5 машин с начальными позициями и случайными цветами
-            for (int i = 0; i < 5; i++)
+            InitializeCars();
+        }
+
+        private void InitializeCars()
+        {
+            _mutex.WaitOne(); // Захватываем мьютекс
+
+            try
             {
-                int startX = 20; // Начальная позиция внутри трассы
-                int startY = 70 + i * 50; // Размещаем их по вертикали на трассе
+                for (int i = 0; i < 5; i++)
+                {
+                    int startX = 20;
+                    int startY = 70 + i * 50;
 
-                // Создаем случайный цвет для каждой машины
-                Brush carColor = new SolidColorBrush(Color.FromRgb(
-                    (byte)_random.Next(256),
-                    (byte)_random.Next(256),
-                    (byte)_random.Next(256)
-                ));
+                    Brush carColor = new SolidColorBrush(Color.FromRgb(
+                        (byte)_random.Next(256),
+                        (byte)_random.Next(256),
+                        (byte)_random.Next(256)
+                    ));
 
-                // Добавляем машинку с случайным цветом
-                _cars.Add(new Car(startX, startY, carColor));
+                    _cars.Add(new Car(startX, startY, carColor));
+                }
+            }
+            finally
+            {
+                _mutex.ReleaseMutex(); // Освобождаем мьютекс
             }
         }
 
         public void StartSimulation()
         {
             _isRunning = true;
+
             foreach (var car in _cars)
             {
-                Task carTask = Task.Run(() => CarMovement());
-                _carTasks.Add(carTask);
+                // Создаем поток для каждой машины с установкой приоритета
+                Thread carThread = new Thread(() => CarMovement());
+                carThread.Priority = ThreadPriority.AboveNormal; // Устанавливаем приоритет выше нормального
+                carThread.Start();
+
+                // Добавляем поток в список для последующего управления
+                _carTasks.Add(Task.Run(() => carThread.Join()));
             }
 
+            // Запускаем мониторинг потоков
             Task.Run(() => MonitorTasks());
         }
 
@@ -64,23 +85,16 @@ namespace CarSimulationApp.Controllers
         {
             while (_isRunning)
             {
-                // Используем Parallel.For для перемещения всех машин одновременно
                 Parallel.For(0, _cars.Count, i =>
                 {
                     var car = _cars[i];
-                    _semaphore.Wait(); // Синхронизация доступа к ресурсам
-                    try
+                    lock (_lock) // Используем lock для синхронизации доступа к машине
                     {
                         car.SetRandomSpeed(_random.Next(1, 7));
                         car.Move();
                     }
-                    finally
-                    {
-                        _semaphore.Release();
-                    }
                 });
 
-                // Обновляем интерфейс в главном потоке
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     DrawCars();
@@ -91,7 +105,6 @@ namespace CarSimulationApp.Controllers
                 await Task.Delay(50); // Асинхронная задержка
             }
         }
-
 
         private void DrawCars()
         {
@@ -261,8 +274,12 @@ namespace CarSimulationApp.Controllers
         public void StopSimulation()
         {
             _isRunning = false;
-            Task.WaitAll(_carTasks.ToArray());
+            foreach (var carTask in _carTasks)
+            {
+                carTask.Wait(); 
+            }
         }
+
 
         public void ResetRace()
         {
@@ -276,18 +293,30 @@ namespace CarSimulationApp.Controllers
 
         private void MonitorTasks()
         {
-            while (_isRunning)
+        while (_isRunning)
+        {
+            foreach (var car in _cars)
             {
-                foreach (var car in _cars)
+                bool lockTaken = false;
+                try
                 {
-                    if (car.X > 550) // Достигли правой границы трассы
+                    Monitor.Enter(_monitorLock, ref lockTaken); // Используем Monitor
+                    if (car.X > 550)
                     {
                         car.ResetPosition();
                     }
                 }
-                Thread.Sleep(100); // Проверяем состояние каждые 100 мс
+                finally
+                {
+                    if (lockTaken)
+                    {
+                        Monitor.Exit(_monitorLock); // Освобождаем блокировку
+                    }
+                }
             }
+            Thread.Sleep(100); // Проверяем состояние каждые 100 мс
         }
+    }
 
         public List<Car> GetCars()
         {

@@ -6,7 +6,6 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- Использование BundledTheme для упрощенной темы -->
                 <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Indigo" SecondaryColor="Pink" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
