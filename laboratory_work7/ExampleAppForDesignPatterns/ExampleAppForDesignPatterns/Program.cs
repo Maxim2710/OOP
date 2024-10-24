@@ -71,9 +71,8 @@ namespace ExampleAppForDesignPatterns
             Singleton anotherSingleton = Singleton.Instance;
             Console.WriteLine(Object.ReferenceEquals(singleton, anotherSingleton)); // Вывод: True
 
-            Console.WriteLine("\n");
 
-            Console.WriteLine("Структурные паттерны проектирования: \n");
+            Console.WriteLine("\nСтруктурные паттерны проектирования: \n");
 
             // Создаем адаптируемый объект
             Adaptee adaptee = new Adaptee();
@@ -94,6 +93,57 @@ namespace ExampleAppForDesignPatterns
             IImplementation implementationB = new ConcreteImplementationB();
             Abstraction abstractionB = new RefinedAbstraction(implementationB);
             abstractionB.Operation(); // Вывод: RefinedAbstraction: Operation. ConcreteImplementationB: Operation Implementation.
+
+
+            // Создание листьев
+            Component leaf1 = new Leaf("Leaf 1");
+            Component leaf2 = new Leaf("Leaf 2");
+
+            // Создание композита
+            Composite composite = new Composite("Composite 1");
+            composite.Add(leaf1);
+            composite.Add(leaf2);
+
+            // Создание другого композита
+            Composite composite2 = new Composite("Composite 2");
+            composite2.Add(new Leaf("Leaf 3"));
+            composite2.Add(composite); // Вложение композита в композит
+
+            // Выполнение операций
+            composite.Operation(); // Выводит операции листьев и композита
+            composite2.Operation(); // Выводит операции второго композита
+
+
+            // Создание базового компонента
+            BaseComponent component = new BasicComponent();
+            Console.WriteLine("Client: " + component.PerformOperation());
+
+            // Декорируем компонент с помощью первого декоратора
+            component = new ExtraFunctionalityA(component);
+            Console.WriteLine("Client: " + component.PerformOperation());
+
+            // Декорируем снова с помощью второго декоратора
+            component = new ExtraFunctionalityB(component);
+            Console.WriteLine("Client: " + component.PerformOperation());
+
+
+            // Создание фасада
+            Facade facade = new Facade();
+            // Взаимодействие с подсистемой через фасад
+            Console.WriteLine(facade.Operation());
+
+
+            // Приспособленец
+            DesignPatternClient designPatternClient = new DesignPatternClient();
+            designPatternClient.Execute();
+
+            // Создаем заместителя
+            ISubject proxy = new Proxy();
+
+            // Обращаемся к заместителю
+            proxy.Request();
+
+            Console.WriteLine("\nПоведенческие паттерны проектирования: \n");
         }
     }
 }
