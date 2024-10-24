@@ -1,6 +1,7 @@
 ﻿using System;
 using ExampleAppForDesignPatterns.GeneratingPatterns;
 using ExampleAppForDesignPatterns.SingletonPattern;
+using ExampleAppForDesignPatterns.StructuralPatterns;
 
 namespace ExampleAppForDesignPatterns
 {
@@ -8,6 +9,8 @@ namespace ExampleAppForDesignPatterns
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Порождающие паттерны проектирования: \n");
+
             // Использование Windows фабрики
             IGUIFactory windowsFactory = new WindowsFactory();
             Client windowsClient = new Client(windowsFactory);
@@ -67,6 +70,30 @@ namespace ExampleAppForDesignPatterns
             // Проверяем, что оба обращения к экземпляру возвращают один и тот же объект
             Singleton anotherSingleton = Singleton.Instance;
             Console.WriteLine(Object.ReferenceEquals(singleton, anotherSingleton)); // Вывод: True
+
+            Console.WriteLine("\n");
+
+            Console.WriteLine("Структурные паттерны проектирования: \n");
+
+            // Создаем адаптируемый объект
+            Adaptee adaptee = new Adaptee();
+
+            // Создаем адаптер и передаем адаптируемый объект
+            ITarget adapter = new Adapter(adaptee);
+
+            // Используем адаптер для вызова метода
+            adapter.Request(); // Вывод: Called SpecificRequest from Adaptee.
+
+
+            // Используем реализацию A
+            IImplementation implementationA = new ConcreteImplementationA();
+            Abstraction abstractionA = new RefinedAbstraction(implementationA);
+            abstractionA.Operation(); // Вывод: RefinedAbstraction: Operation. ConcreteImplementationA: Operation Implementation.
+
+            // Используем реализацию B
+            IImplementation implementationB = new ConcreteImplementationB();
+            Abstraction abstractionB = new RefinedAbstraction(implementationB);
+            abstractionB.Operation(); // Вывод: RefinedAbstraction: Operation. ConcreteImplementationB: Operation Implementation.
         }
     }
 }
