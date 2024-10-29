@@ -41,7 +41,31 @@ namespace FailsafeSystem
 
             try
             {
-                // Шаг 3: Вставка управляющих стержней
+                // Шаг 3: Проверка резервной системы охлаждения
+                _switch.VerifyBackupCoolantSystem();
+            }
+            catch (CoolantTemperatureReadException ex)
+            {
+                LogMessage($"Ошибка чтения температуры в резервной системе охлаждения: {ex.Message}");
+            }
+            catch (CoolantPressureReadException ex)
+            {
+                LogMessage($"Ошибка чтения давления в резервной системе охлаждения: {ex.Message}");
+            }
+
+            try
+            {
+                // Шаг 4: Чтение температуры ядра
+                _switch.GetCoreTemperature();
+            }
+            catch (CoreTemperatureReadException ex)
+            {
+                LogMessage($"Ошибка чтения температуры ядра: {ex.Message}");
+            }
+
+            try
+            {
+                // Шаг 5: Вставка управляющих стержней
                 _switch.InsertRodCluster();
             }
             catch (RodClusterReleaseException ex)
@@ -51,7 +75,27 @@ namespace FailsafeSystem
 
             try
             {
-                // Шаг 4: Завершение отключения
+                // Шаг 6: Чтение температуры ядра после отключения
+                _switch.GetCoreTemperature();
+            }
+            catch (CoreTemperatureReadException ex)
+            {
+                LogMessage($"Ошибка чтения температуры ядра после отключения: {ex.Message}");
+            }
+
+            try
+            {
+                // Шаг 7: Чтение уровня радиации после отключения
+                _switch.GetRadiationLevel();
+            }
+            catch (CoreRadiationLevelReadException ex)
+            {
+                LogMessage($"Ошибка чтения уровня радиации: {ex.Message}");
+            }
+
+            try
+            {
+                // Шаг 8: Завершение отключения
                 _switch.SignalShutdownComplete();
             }
             catch (SignallingException ex)
@@ -59,6 +103,8 @@ namespace FailsafeSystem
                 LogMessage($"Ошибка сигнала завершения отключения: {ex.Message}");
             }
         }
+
+
 
         private void LogMessage(string message)
         {
