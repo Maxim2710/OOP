@@ -22,7 +22,7 @@ namespace ExampleAppForDesignPatterns.StructuralPatterns
     // Заместитель
     public class Proxy : ISubject
     {
-        private RealSubject _realSubject;
+        private RealSubject? _realSubject;
 
         public void Request()
         {

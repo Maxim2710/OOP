@@ -2,6 +2,7 @@
 using ExampleAppForDesignPatterns.GeneratingPatterns;
 using ExampleAppForDesignPatterns.SingletonPattern;
 using ExampleAppForDesignPatterns.StructuralPatterns;
+using ExampleAppForDesignPatterns.BehavioralPatterns;
 
 namespace ExampleAppForDesignPatterns
 {
@@ -144,6 +145,41 @@ namespace ExampleAppForDesignPatterns
             proxy.Request();
 
             Console.WriteLine("\nПоведенческие паттерны проектирования: \n");
+
+            // Цепочка обязанностей
+            Client1.ExecuteChain();
+
+            // Команда
+            Client2.ExecuteCommandPattern();
+
+            // Интерпретатор
+            Client3.ExecuteInterpreterPattern();
+
+            // Итератор
+            Client4.ExecuteIteratorPattern();
+
+            // Посредник
+            Client5.ExecuteMediatorPattern();
+
+            // Хранитель
+            Client6.ExecuteMementoPattern();
+
+            // Наблюдатель
+            Client7.ExecuteObserverPattern();
+
+            // Состояние
+            Client8.ExecuteStatePattern();
+
+            // Стратегия
+            Client9.ExecuteStrategyPattern();
+
+            // Шаблонный метод
+            Client10.ExecuteTemplateMethod();
+
+            // Посетитель
+            Client11.ExecuteVisitorPattern();
+
+
         }
     }
 }
