@@ -1,0 +1,47 @@
+﻿<Window x:Class="OnlineStore.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:OnlineStore.ViewModels"
+        Title="Online Store" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Список доступных товаров -->
+        <ListView Grid.Column="0" ItemsSource="{Binding AvailableProducts}" SelectedItem="{Binding SelectedProduct}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Корзина -->
+        <StackPanel Grid.Column="1" Margin="10">
+            <TextBlock Text="Cart" FontWeight="Bold" />
+            <ListView ItemsSource="{Binding CartProducts}" SelectedItem="{Binding SelectedProduct}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TextBlock Text="{Binding Total, StringFormat='Total: {0:C}'}" FontWeight="Bold" Margin="10,0" />
+        </StackPanel>
+
+        <!-- Кнопка добавления в корзину -->
+        <Button Grid.Column="0" Content="Add to Cart" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                Command="{Binding AddToCartCommand}" CommandParameter="{Binding SelectedProduct}" />
+
+        <!-- Кнопка удаления из корзины -->
+        <Button Grid.Column="1" Content="Remove from Cart" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                Command="{Binding RemoveFromCartCommand}" CommandParameter="{Binding SelectedProduct}" />
+    </Grid>
+</Window>
